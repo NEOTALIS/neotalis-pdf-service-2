@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
@@ -6,20 +5,6 @@ from reportlab.lib.colors import HexColor, white
 from reportlab.platypus import Paragraph
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.enums import TA_JUSTIFY, TA_CENTER, TA_LEFT
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
-import os
-
-# Register DejaVu fonts for full UTF-8 support
-_dir = os.path.dirname(__file__)
-try:
-    pdfmetrics.registerFont(TTFont("DejaVu", os.path.join(_dir, "DejaVuSans.ttf")))
-    pdfmetrics.registerFont(TTFont("DejaVu-Bold", os.path.join(_dir, "DejaVuSans-Bold.ttf")))
-    FONT_NORMAL = "DejaVu"
-    FONT_BOLD   = "DejaVu-Bold"
-except Exception:
-    FONT_NORMAL = "Helvetica"
-    FONT_BOLD   = "Helvetica-Bold"
 
 BLUE        = HexColor("#2563eb")
 BLUE_LIGHT  = HexColor("#eff6ff")
@@ -36,11 +21,11 @@ WHITE       = white
 
 LEVEL_COLORS = {
     "Expert":           GREEN,
-    "Confirm\u00e9":         BLUE,
+    "Confirmé":         BLUE,
     "Confirme":         BLUE,
-    "En d\u00e9veloppement": AMBER,
+    "En développement": AMBER,
     "En developpement": AMBER,
-    "\u00c9mergent":         RED,
+    "Émergent":         RED,
     "Emergent":         RED,
 }
 
@@ -48,52 +33,52 @@ LOGO_PATH = "/mnt/user-data/uploads/NEOTALIS_Logo_rond.jpeg"
 
 MOCK = {
     "candidate_name": "Sophie Martin",
-    "position":       "Charg\u00e9e de Recrutement Senior",
+    "position":       "Chargée de Recrutement Senior",
     "company":        "DEMO BANK SA",
     "date":           "20 mai 2026",
     "job_profile":    "Banquier Junior",
     "fit_score":      78,
     "axes": [
-        {"name": "M\u00e9moire de travail",      "level": "Confirm\u00e9",          "score": 72, "target": 70},
-        {"name": "Contr\u00f4le inhibiteur",     "level": "Expert",            "score": 88, "target": 75},
-        {"name": "Vitesse de traitement",   "level": "En d\u00e9veloppement",  "score": 54, "target": 80},
-        {"name": "Flexibilit\u00e9 cognitive",   "level": "Confirm\u00e9",          "score": 68, "target": 65},
-        {"name": "Attention soutenue",      "level": "\u00c9mergent",          "score": 38, "target": 70},
-        {"name": "Performance sous charge", "level": "En d\u00e9veloppement",  "score": 51, "target": 60},
+        {"name": "Mémoire de travail",      "level": "Confirmé",          "score": 72, "target": 70},
+        {"name": "Contrôle inhibiteur",     "level": "Expert",            "score": 88, "target": 75},
+        {"name": "Vitesse de traitement",   "level": "En développement",  "score": 54, "target": 80},
+        {"name": "Flexibilité cognitive",   "level": "Confirmé",          "score": 68, "target": 65},
+        {"name": "Attention soutenue",      "level": "Émergent",          "score": 38, "target": 70},
+        {"name": "Performance sous charge", "level": "En développement",  "score": 51, "target": 60},
     ],
     "executive_summary": (
-        "Sophie Martin pr\u00e9sente un profil cognitif solide sur les dimensions de contr\u00f4le inhibiteur et de m\u00e9moire de "
-        "travail, deux comp\u00e9tences cl\u00e9s pour un poste orient\u00e9 relation client et gestion de dossiers complexes. "
-        "Sa vitesse de traitement et son attention soutenue sont en dessous des cibles du poste, ce qui m\u00e9rite "
-        "une exploration en entretien pour \u00e9valuer ses strat\u00e9gies compensatoires. Dans l'ensemble, le profil est "
-        "prometteur pour le poste vis\u00e9 avec un accompagnement cibl\u00e9 sur les axes de d\u00e9veloppement."
+        "Sophie Martin présente un profil cognitif solide sur les dimensions de contrôle inhibiteur et de mémoire de "
+        "travail, deux compétences clés pour un poste orienté relation client et gestion de dossiers complexes. "
+        "Sa vitesse de traitement et son attention soutenue sont en dessous des cibles du poste, ce qui mérite "
+        "une exploration en entretien pour évaluer ses stratégies compensatoires. Dans l'ensemble, le profil est "
+        "prometteur pour le poste visé avec un accompagnement ciblé sur les axes de développement."
     ),
     "interview_questions": [
         {
             "axis":     "Vitesse de traitement",
-            "question": "D\u00e9crivez une situation o\u00f9 vous avez d\u00fb traiter un volume important d'informations dans un d\u00e9lai tr\u00e8s court. Comment avez-vous prioris\u00e9 ?",
-            "why":      "Score en dessous de la cible (54/80). Explorer les strat\u00e9gies de gestion de l'urgence.",
+            "question": "Décrivez une situation où vous avez dû traiter un volume important d'informations dans un délai très court. Comment avez-vous priorisé ?",
+            "why":      "Score en dessous de la cible (54/80). Explorer les stratégies de gestion de l'urgence.",
         },
         {
             "axis":     "Attention soutenue",
-            "question": "Comment organisez-vous vos journ\u00e9es pour maintenir votre concentration sur des t\u00e2ches longues et r\u00e9p\u00e9titives ?",
-            "why":      "Niveau \u00c9mergent (38/70). \u00c9valuer les m\u00e9canismes de maintien du focus.",
+            "question": "Comment organisez-vous vos journées pour maintenir votre concentration sur des tâches longues et répétitives ?",
+            "why":      "Niveau Émergent (38/70). Évaluer les mécanismes de maintien du focus.",
         },
         {
             "axis":     "Performance sous charge",
-            "question": "Racontez une situation de forte pression o\u00f9 votre performance a \u00e9t\u00e9 mise \u00e0 l'\u00e9preuve. Qu'avez-vous appris sur vous-m\u00eame ?",
-            "why":      "Score l\u00e9g\u00e8rement sous la cible (51/60). Comprendre la r\u00e9silience sous stress.",
+            "question": "Racontez une situation de forte pression où votre performance a été mise à l'épreuve. Qu'avez-vous appris sur vous-même ?",
+            "why":      "Score légèrement sous la cible (51/60). Comprendre la résilience sous stress.",
         },
     ],
     "vigilance_points": [
-        "L'attention soutenue (\u00c9mergent) peut impacter la qualit\u00e9 sur des t\u00e2ches administratives longues \u2014 pr\u00e9voir un environnement de travail structur\u00e9.",
-        "La vitesse de traitement en dessous de la cible peut ralentir la gestion de dossiers \u00e0 fort volume \u2014 \u00e9valuer la charge de travail initiale.",
-        "V\u00e9rifier si la candidate a d\u00e9velopp\u00e9 des strat\u00e9gies compensatoires efficaces pour ses axes plus faibles.",
+        "L'attention soutenue (Émergent) peut impacter la qualité sur des tâches administratives longues — prévoir un environnement de travail structuré.",
+        "La vitesse de traitement en dessous de la cible peut ralentir la gestion de dossiers à fort volume — évaluer la charge de travail initiale.",
+        "Vérifier si la candidate a développé des stratégies compensatoires efficaces pour ses axes plus faibles.",
     ],
     "strengths": [
-        "Contr\u00f4le inhibiteur exceptionnel (Expert, 88/75) \u2014 atout majeur pour la prise de d\u00e9cision r\u00e9fl\u00e9chie.",
-        "M\u00e9moire de travail au-dessus de la cible (72/70) \u2014 capacit\u00e9 \u00e0 g\u00e9rer plusieurs dossiers simultan\u00e9ment.",
-        "Flexibilit\u00e9 cognitive au-dessus de la cible (68/65) \u2014 bonne adaptabilit\u00e9 aux changements de contexte.",
+        "Contrôle inhibiteur exceptionnel (Expert, 88/75) — atout majeur pour la prise de décision réfléchie.",
+        "Mémoire de travail au-dessus de la cible (72/70) — capacité à gérer plusieurs dossiers simultanément.",
+        "Flexibilité cognitive au-dessus de la cible (68/65) — bonne adaptabilité aux changements de contexte.",
     ],
 }
 
@@ -118,8 +103,8 @@ def rrect(c, x, y, w, h, r=3*mm, fill=None, stroke=None, sw=0.5):
 
 def pill_draw(c, x, y, text, bg, fg=WHITE, fs=7, ph=5*mm):
     c.saveState()
-    c.setFont(FONT_BOLD, fs)
-    tw = c.stringWidth(text, FONT_BOLD, fs)
+    c.setFont("Helvetica-Bold", fs)
+    tw = c.stringWidth(text, "Helvetica-Bold", fs)
     pw = tw + 6*mm
     rrect(c, x, y, pw, ph, r=ph/2, fill=bg)
     c.setFillColor(fg)
@@ -128,8 +113,8 @@ def pill_draw(c, x, y, text, bg, fg=WHITE, fs=7, ph=5*mm):
     return pw
 
 def pill_width(c, text, fs=7):
-    c.setFont(FONT_BOLD, fs)
-    return c.stringWidth(text, FONT_BOLD, fs) + 6*mm
+    c.setFont("Helvetica-Bold", fs)
+    return c.stringWidth(text, "Helvetica-Bold", fs) + 6*mm
 
 def score_bar(c, x, y, score, target, bw=55*mm, bh=3*mm):
     rrect(c, x, y, bw, bh, r=1.5*mm, fill=GRAY_BORDER)
@@ -140,10 +125,12 @@ def score_bar(c, x, y, score, target, bw=55*mm, bh=3*mm):
     c.setStrokeColor(NAVY); c.setLineWidth(1.2)
     c.line(tx, y-1, tx, y+bh+1)
 
-def para_style(fs=8, color=GRAY_DARK, align=TA_JUSTIFY, font=None, leading=None):
+# ── Paragraph helpers (justified / centred) ───────────────────────────────────
+
+def para_style(fs=8, color=GRAY_DARK, align=TA_JUSTIFY, font="Helvetica", leading=None):
     return ParagraphStyle(
         "s",
-        fontName=font or FONT_NORMAL,
+        fontName=font,
         fontSize=fs,
         textColor=color,
         alignment=align,
@@ -153,6 +140,7 @@ def para_style(fs=8, color=GRAY_DARK, align=TA_JUSTIFY, font=None, leading=None)
     )
 
 def draw_para(c, text, x, y, w, style):
+    """Draw a Paragraph at (x,y) top-left, return bottom y."""
     p = Paragraph(text, style)
     pw, ph = p.wrap(w, 9999)
     p.drawOn(c, x, y - ph)
@@ -165,10 +153,13 @@ def para_height(text, w, style):
     return ph
 
 def section_hdr(c, x, y, w, label):
+    """Navy header bar with CENTRED white title. Returns y below."""
     rrect(c, x, y-7*mm, w, 7*mm, r=2*mm, fill=NAVY)
-    c.setFillColor(WHITE); c.setFont(FONT_BOLD, 8)
+    c.setFillColor(WHITE); c.setFont("Helvetica-Bold", 8)
     c.drawCentredString(x + w/2, y - 5.2*mm, label)
     return y - 9*mm
+
+# ── Page manager ──────────────────────────────────────────────────────────────
 
 class Doc:
     FOOTER_H = 13*mm
@@ -185,10 +176,10 @@ class Doc:
         c, W, M = self.c, self.W, self.M
         c.setFillColor(GRAY_BG); c.rect(0, 0, W, 11*mm, fill=1, stroke=0)
         c.setStrokeColor(GRAY_BORDER); c.setLineWidth(0.5); c.line(0, 11*mm, W, 11*mm)
-        c.setFillColor(GRAY_TEXT); c.setFont(FONT_NORMAL, 6.5)
+        c.setFillColor(GRAY_TEXT); c.setFont("Helvetica", 6.5)
         c.drawString(M, 4*mm,
-            "neotalis.com \u2014 Document confidentiel \u00e0 usage exclusif du recruteur \u2014 Conforme LPD/RGPD")
-        c.drawRightString(W - M, 4*mm, f"G\u00e9n\u00e9r\u00e9 le {self.data['date']}")
+            "neotalis.com — Document confidentiel à usage exclusif du recruteur — Conforme LPD/RGPD")
+        c.drawRightString(W - M, 4*mm, f"Généré le {self.data['date']}")
 
     def new_page(self):
         self._footer(); self.c.showPage()
@@ -201,12 +192,15 @@ class Doc:
     def finish(self):
         self._footer(); self.c.save()
 
+# ── Build ─────────────────────────────────────────────────────────────────────
+
 def generate_recruiter_pdf(data=MOCK, output_path="/mnt/user-data/outputs/neotalis_recruiter_report.pdf", logo_path=LOGO_PATH):
     doc = Doc(output_path, data)
     c   = doc.c
     W, H, M, CW = doc.W, doc.H, doc.M, doc.CW
     PAD = 5*mm
 
+    # ── HEADER ────────────────────────────────────────────────────────────────
     HDR_H  = 40*mm
     hdr_x  = M
     hdr_y  = H - M - HDR_H
@@ -226,14 +220,14 @@ def generate_recruiter_pdf(data=MOCK, output_path="/mnt/user-data/outputs/neotal
     text_zone_w = CW - (logo_x - hdr_x) - LOGO_S - 14*mm
     name_cx = text_zone_x + text_zone_w / 2
 
-    c.setFillColor(NAVY); c.setFont(FONT_BOLD, 18)
+    c.setFillColor(NAVY); c.setFont("Helvetica-Bold", 18)
     c.drawCentredString(name_cx, hdr_y + HDR_H/2 + 3*mm, data["candidate_name"])
-    c.setFont(FONT_NORMAL, 9); c.setFillColor(BLUE)
+    c.setFont("Helvetica", 9); c.setFillColor(BLUE)
     c.drawCentredString(name_cx, hdr_y + HDR_H/2 - 4*mm, data["position"])
 
     tag = "RAPPORT RECRUTEUR CONFIDENTIEL"
-    c.setFont(FONT_BOLD, 6.5)
-    tag_tw = c.stringWidth(tag, FONT_BOLD, 6.5)
+    c.setFont("Helvetica-Bold", 6.5)
+    tag_tw = c.stringWidth(tag, "Helvetica-Bold", 6.5)
     tag_w  = tag_tw + 6*mm; tag_h = 5*mm
     tag_x  = W - M - tag_w - 5*mm
     tag_y2 = hdr_y + HDR_H - 9*mm
@@ -241,15 +235,16 @@ def generate_recruiter_pdf(data=MOCK, output_path="/mnt/user-data/outputs/neotal
     c.setFillColor(WHITE)
     c.drawString(tag_x + 3*mm, tag_y2 + (tag_h - 6.5*0.352778)/2, tag)
 
-    c.setFont(FONT_NORMAL, 7.5); c.setFillColor(GRAY_TEXT)
+    c.setFont("Helvetica", 7.5); c.setFillColor(GRAY_TEXT)
     c.drawRightString(W - M - 5*mm, hdr_y + 10*mm, data["company"])
     c.drawRightString(W - M - 5*mm, hdr_y + 4.5*mm, data["date"])
 
     doc.y = hdr_y - 6*mm
 
+    # ── FIT BANNER ────────────────────────────────────────────────────────────
     fit   = data["fit_score"]
     fcol  = GREEN if fit >= 75 else (AMBER if fit >= 55 else RED)
-    flbl  = "Bon fit" if fit >= 75 else ("Fit mod\u00e9r\u00e9" if fit >= 55 else "Fit faible")
+    flbl  = "Bon fit" if fit >= 75 else ("Fit modéré" if fit >= 55 else "Fit faible")
     BNR_H = 18*mm
     doc.ensure(BNR_H + 4*mm)
     bx = M; by = doc.y - BNR_H
@@ -259,27 +254,27 @@ def generate_recruiter_pdf(data=MOCK, output_path="/mnt/user-data/outputs/neotal
     c.setFillColor(fcol); c.circle(cx_, cy_, cr, fill=1, stroke=0)
     c.setFillColor(WHITE)
     score_str = str(fit)
-    c.setFont(FONT_BOLD, 16)
-    sw_score = c.stringWidth(score_str, FONT_BOLD, 16)
-    c.setFont(FONT_NORMAL, 8)
-    sw_denom = c.stringWidth("/100", FONT_NORMAL, 8)
+    c.setFont("Helvetica-Bold", 16)
+    sw_score = c.stringWidth(score_str, "Helvetica-Bold", 16)
+    c.setFont("Helvetica", 8)
+    sw_denom = c.stringWidth("/100", "Helvetica", 8)
     gap_px = 1
     total_w = sw_score + gap_px + sw_denom
     sx = cx_ - total_w / 2
     base_y = cy_ - 3*mm
-    c.setFont(FONT_BOLD, 16); c.setFillColor(WHITE)
+    c.setFont("Helvetica-Bold", 16); c.setFillColor(WHITE)
     c.drawString(sx, base_y, score_str)
-    c.setFont(FONT_NORMAL, 8); c.setFillColor(WHITE)
+    c.setFont("Helvetica", 8); c.setFillColor(WHITE)
     c.drawString(sx + sw_score + gap_px, base_y, "/100")
 
     lx = cx_ + cr + 5*mm
-    c.setFillColor(NAVY); c.setFont(FONT_BOLD, 11)
-    c.drawString(lx, cy_ + 2*mm, f"Score d'ad\u00e9quation : {flbl}  ({fit}/100)")
-    c.setFillColor(GRAY_TEXT); c.setFont(FONT_NORMAL, 8)
-    c.drawString(lx, cy_ - 4.5*mm, f"Profil de poste r\u00e9f\u00e9rence : {data['job_profile']}")
+    c.setFillColor(NAVY); c.setFont("Helvetica-Bold", 11)
+    c.drawString(lx, cy_ + 2*mm, f"Score d'adéquation : {flbl}  ({fit}/100)")
+    c.setFillColor(GRAY_TEXT); c.setFont("Helvetica", 8)
+    c.drawString(lx, cy_ - 4.5*mm, f"Profil de poste référence : {data['job_profile']}")
 
     leg_x = W - M - 42*mm
-    c.setFont(FONT_NORMAL, 7)
+    c.setFont("Helvetica", 7)
     c.setFillColor(fcol);  c.rect(leg_x, cy_+1.5*mm, 3*mm, 3*mm, fill=1, stroke=0)
     c.setFillColor(GRAY_TEXT); c.drawString(leg_x+4*mm, cy_+2*mm, "Score candidat")
     c.setFillColor(NAVY);  c.rect(leg_x, cy_-4*mm,   3*mm, 3*mm, fill=1, stroke=0)
@@ -287,15 +282,17 @@ def generate_recruiter_pdf(data=MOCK, output_path="/mnt/user-data/outputs/neotal
 
     doc.y = by - 6*mm
 
+    # ── EXECUTIVE SUMMARY ─────────────────────────────────────────────────────
     st_just = para_style(fs=8, align=TA_JUSTIFY, leading=13)
     ph = para_height(data["executive_summary"], CW - 2*PAD, st_just)
     blk_h = ph + 2*PAD
     doc.ensure(9*mm + blk_h + 4*mm)
-    doc.y = section_hdr(c, M, doc.y, CW, "SYNTH\u00c8SE EX\u00c9CUTIVE")
+    doc.y = section_hdr(c, M, doc.y, CW, "SYNTHÈSE EXÉCUTIVE")
     rrect(c, M, doc.y - blk_h, CW, blk_h, r=2*mm, fill=GRAY_BG, stroke=GRAY_BORDER, sw=0.5)
     draw_para(c, data["executive_summary"], M+PAD, doc.y-PAD, CW-2*PAD, st_just)
     doc.y -= blk_h + 5*mm
 
+    # ── STRENGTHS ─────────────────────────────────────────────────────────────
     st_str = para_style(fs=8, align=TA_JUSTIFY, leading=13)
     b_heights = [para_height(s, CW-14*mm, st_str) for s in data["strengths"]]
     str_h = sum(b_heights) + len(data["strengths"])*3*mm + 2*PAD
@@ -310,8 +307,9 @@ def generate_recruiter_pdf(data=MOCK, output_path="/mnt/user-data/outputs/neotal
         sy -= bh + 3*mm
     doc.y -= str_h + 5*mm
 
+    # ── COGNITIVE AXES ────────────────────────────────────────────────────────
     doc.ensure(9*mm)
-    doc.y = section_hdr(c, M, doc.y, CW, "PROFIL COGNITIF D\u00c9TAILL\u00c9")
+    doc.y = section_hdr(c, M, doc.y, CW, "PROFIL COGNITIF DÉTAILLÉ")
 
     CARD_W = (CW - 4*mm) / 2
     CARD_H = 25*mm
@@ -333,40 +331,41 @@ def generate_recruiter_pdf(data=MOCK, output_path="/mnt/user-data/outputs/neotal
         sc_cx = cx_ + 4*mm + sc_r
         sc_cy = cy_ + CARD_H - sc_r - 4*mm
         c.setFillColor(lvc); c.circle(sc_cx, sc_cy, sc_r, fill=1, stroke=0)
-        c.setFillColor(WHITE); c.setFont(FONT_BOLD, 9)
+        c.setFillColor(WHITE); c.setFont("Helvetica-Bold", 9)
         c.drawCentredString(sc_cx, sc_cy - 1.5*mm, str(ax["score"]))
 
         nm_x = sc_cx + sc_r + 3*mm
         nm_y = sc_cy + 2*mm
-        c.setFillColor(GRAY_DARK); c.setFont(FONT_BOLD, 8)
+        c.setFillColor(GRAY_DARK); c.setFont("Helvetica-Bold", 8)
         c.drawString(nm_x, nm_y, ax["name"])
 
         pill_draw(c, nm_x, nm_y - 6*mm, ax["level"], lvc, fs=6.5, ph=4.5*mm)
 
-        c.setFont(FONT_NORMAL, 7); c.setFillColor(GRAY_TEXT)
+        c.setFont("Helvetica", 7); c.setFillColor(GRAY_TEXT)
         c.drawRightString(cx_+CARD_W-3*mm, nm_y, f"Cible : {ax['target']}")
         gap_str = f"+{gap}" if gap >= 0 else str(gap)
-        c.setFont(FONT_BOLD, 7); c.setFillColor(gcol)
-        c.drawRightString(cx_+CARD_W-3*mm, nm_y-5*mm, f"\u00c9cart : {gap_str}")
+        c.setFont("Helvetica-Bold", 7); c.setFillColor(gcol)
+        c.drawRightString(cx_+CARD_W-3*mm, nm_y-5*mm, f"Écart : {gap_str}")
 
         bar_w = CARD_W - 8*mm
         score_bar(c, cx_+4*mm, cy_+5.5*mm, ax["score"], ax["target"], bw=bar_w)
 
-        lbl = "Au-dessus de la cible \u2713" if gap >= 0 else "En dessous de la cible"
-        c.setFont(FONT_NORMAL, 6.5); c.setFillColor(gcol)
+        lbl = "Au-dessus de la cible ✓" if gap >= 0 else "En dessous de la cible"
+        c.setFont("Helvetica", 6.5); c.setFillColor(gcol)
         c.drawString(cx_+4*mm, cy_+1.8*mm, lbl)
 
     doc.y -= grid_h + 5*mm
 
+    # ── INTERVIEW QUESTIONS ───────────────────────────────────────────────────
     doc.ensure(9*mm)
-    doc.y = section_hdr(c, M, doc.y, CW, "QUESTIONS D'ENTRETIEN RECOMMAND\u00c9ES")
+    doc.y = section_hdr(c, M, doc.y, CW, "QUESTIONS D'ENTRETIEN RECOMMANDÉES")
 
-    st_q   = para_style(fs=8, font=FONT_BOLD, align=TA_JUSTIFY, leading=13, color=GRAY_DARK)
+    st_q   = para_style(fs=8, font="Helvetica-Bold", align=TA_JUSTIFY, leading=13, color=GRAY_DARK)
     st_why = para_style(fs=7.5, align=TA_JUSTIFY, leading=12, color=GRAY_TEXT)
     NR     = 4.5*mm
 
     for qi, q in enumerate(data["interview_questions"]):
-        q_ph   = para_height(f'\u00ab {q["question"]} \u00bb', CW-2*PAD, st_q)
+        q_ph   = para_height(f'« {q["question"]} »', CW-2*PAD, st_q)
         why_ph = para_height(f"Pourquoi : {q['why']}", CW-2*PAD, st_why)
         row_h  = NR*2 + 2*mm
         card_h = PAD + row_h + 3*mm + q_ph + 2*mm + why_ph + PAD
@@ -384,19 +383,20 @@ def generate_recruiter_pdf(data=MOCK, output_path="/mnt/user-data/outputs/neotal
         nc_cx = start + NR
         nc_cy = top - PAD - NR
         c.setFillColor(BLUE); c.circle(nc_cx, nc_cy, NR, fill=1, stroke=0)
-        c.setFillColor(WHITE); c.setFont(FONT_BOLD, 8)
+        c.setFillColor(WHITE); c.setFont("Helvetica-Bold", 8)
         c.drawCentredString(nc_cx, nc_cy-1.5*mm, str(qi+1))
 
         pill_draw(c, start+NR*2+gap_, nc_cy-NR, q["axis"], BLUE_LIGHT, fg=BLUE, fs=7, ph=ph_)
 
         q_top = nc_cy - NR - 4*mm
-        draw_para(c, f'\u00ab {q["question"]} \u00bb', M+PAD, q_top, CW-2*PAD, st_q)
+        draw_para(c, f'« {q["question"]} »', M+PAD, q_top, CW-2*PAD, st_q)
 
         why_top = q_top - q_ph - 2*mm
         draw_para(c, f"Pourquoi : {q['why']}", M+PAD, why_top, CW-2*PAD, st_why)
 
         doc.y = bot - 4*mm
 
+    # ── VIGILANCE POINTS ──────────────────────────────────────────────────────
     st_v  = para_style(fs=8, align=TA_JUSTIFY, leading=13)
     v_phs = [para_height(v, CW-14*mm, st_v) for v in data["vigilance_points"]]
     vig_h = sum(v_phs) + len(data["vigilance_points"])*3*mm + 2*PAD
@@ -412,7 +412,7 @@ def generate_recruiter_pdf(data=MOCK, output_path="/mnt/user-data/outputs/neotal
         vy -= vh + 3*mm
 
     doc.finish()
-    print(f"PDF g\u00e9n\u00e9r\u00e9 : {output_path}")
+    print(f"PDF généré : {output_path}")
 
 if __name__ == "__main__":
     generate_recruiter_pdf()
