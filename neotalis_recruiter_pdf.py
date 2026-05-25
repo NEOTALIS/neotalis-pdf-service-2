@@ -22,8 +22,11 @@ WHITE       = white
 LEVEL_COLORS = {
     "Expert":           GREEN,
     "Confirmé":         BLUE,
+    "Confirme":         BLUE,
     "En développement": AMBER,
+    "En developpement": AMBER,
     "Émergent":         RED,
+    "Emergent":         RED,
 }
 
 LOGO_PATH = "/mnt/user-data/uploads/NEOTALIS_Logo_rond.jpeg"
